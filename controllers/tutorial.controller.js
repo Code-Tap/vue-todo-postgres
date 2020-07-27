@@ -62,7 +62,23 @@ exports.findOne = (req, res) => {
 };
 
 exports.update = (req, res) => {
+    const id = req.params.id;
 
+    Tutorial.update(req.body, {
+        where: { id: id }
+    })
+    .then(num => {
+        if (num == 1) {
+            res.send({
+                message: `Cannot update with id=${id}. Maybe its not found or req.body is empty`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error updating with id=" + id
+        });
+    });
 };
 
 exports.delete = (req, res) => {
