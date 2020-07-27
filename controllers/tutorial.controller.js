@@ -106,9 +106,30 @@ exports.delete = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
-
+    Tutorial.destroy({
+        where: {},
+        truncate: false
+    })
+    .then(nums => {
+        res.send({ message: `${nums} Objects deleted successfully`})
+    })
+    .catch(err => {
+        res.status(500).send({
+            message:
+            err.message || "Some error removeing all occourred"
+        });
+    });
 };
 
 exports.findAllPublished = (req, res) => {
-
+    Tutorial.findAll({ where: { published: true } })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Error occourred retriving all published"
+            });
+        });
 };
