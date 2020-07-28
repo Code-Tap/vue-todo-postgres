@@ -1,8 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const db = require("./models");
 
 const app = express();
+
+// db.sequelize.sync(); //use this is prod
+
+db.sequelize.sync({ force: true }).then(() => {
+    console.log("Drop and re-sync db.");
+  });
 
 var corsOptions = {
     origin: "htt://localhost:8081"
@@ -17,6 +24,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to this Vue app." });
 });
+
+require("./routes/tutorial.routes")(app);
 
 //set port
 const PORT = process.env.PORT || 8080;

@@ -6,9 +6,10 @@ exports.create = (req, res) => {
     //Validate request
     if (!req.body.title) {
         res.status(400).send({
-            message: "Content canot be empty!"
-        })
-        return
+            message: "Content canot be empty!",
+            // echo: `${JSON.stringify(req.body)}`
+        });
+        return;
     }
 
     // Create a tutorial
@@ -28,14 +29,14 @@ exports.create = (req, res) => {
                 message:
                     err.message || "Some error occurred while creating the Tutorial."
             });
-        })
+        });
 };
 
 exports.findAll = (req, res) => {
     const title = req.query.title;
     var condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
-    Tutorial.findall({ where: condition })
+    Tutorial.findAll({ where: condition })
         .then(data => {
             res.send(data);
         })

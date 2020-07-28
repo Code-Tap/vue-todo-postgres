@@ -1,15 +1,13 @@
-module.exports = (sequelize, Sequelize) => {
-    const Tutorial = sequelize.define("tutorial", {
-        title: {
-            type: Sequelize.STRING
-        },
-        description: {
-            type: Sequelize.STRING
-        },
-        published: {
-            type: Sequelize.BOOLEAN
-        }
-    });
-
-    return Tutorial;
-}
+module.exports = {
+    HOST: "localhost",
+    USER: "actix",
+    PASSWORD: "actix",
+    DB: "actix",
+    dialect: "postgres",
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
+  };
