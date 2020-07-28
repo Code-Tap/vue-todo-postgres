@@ -71,6 +71,10 @@ exports.update = (req, res) => {
     .then(num => {
         if (num == 1) {
             res.send({
+                message: "DB was updated successfully."  // 
+            });
+        } else {
+            res.send({
                 message: `Cannot update with id=${id}. Maybe its not found or req.body is empty`
             });
         }
