@@ -1,5 +1,5 @@
 const db = require("../models");
-const Tutorial = db.tutorials;
+const Record = db.records;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -12,22 +12,22 @@ exports.create = (req, res) => {
         return;
     }
 
-    // Create a tutorial
-    const tutorial = {
+    // Create a record
+    const record = {
         title: req.body.title,
         description: req.body.description,
         published: req.body.published ? req.body.published : false
     };
 
-    // save Tutorial in the database
-    Tutorial.create(tutorial)
+    // save Record in the database
+    Record.create(record)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Some error occurred while creating the Record."
             });
         });
 };
@@ -36,7 +36,7 @@ exports.findAll = (req, res) => {
     const title = req.query.title;
     var condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
-    Tutorial.findAll({ where: condition })
+    Record.findAll({ where: condition })
         .then(data => {
             res.send(data);
         })
@@ -51,7 +51,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Tutorial.findByPk(id)
+    Record.findByPk(id)
         .then(data => {
             res.send(data);
         })
@@ -65,7 +65,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Tutorial.update(req.body, {
+    Record.update(req.body, {
         where: { id: id }
     })
     .then(num => {
@@ -89,13 +89,13 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Tutorial.destroy({
+    Record.destroy({
         where: { id:id }
     })
     .then(num => {
         if (num == 1) {
             res.send({
-                message: "Tutorial was deleted successfully!"
+                message: "Record was deleted successfully!"
             });
         } else {
             res.send({
@@ -111,7 +111,7 @@ exports.delete = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
-    Tutorial.destroy({
+    Record.destroy({
         where: {},
         truncate: false
     })
@@ -127,7 +127,7 @@ exports.deleteAll = (req, res) => {
 };
 
 exports.findAllPublished = (req, res) => {
-    Tutorial.findAll({ where: { published: true } })
+    Record.findAll({ where: { published: true } })
         .then(data => {
             res.send(data);
         })

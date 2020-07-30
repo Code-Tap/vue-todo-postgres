@@ -4,7 +4,7 @@
   "description": "Todo App",
   "main": "server.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --exit"
   },
   "keywords": [
     "nodejs",

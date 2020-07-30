@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
     res.json({ status: "success", message: "Welcome to the API" });
 });
 
-require("./routes/tutorial.routes")(app);
+require("./routes/record.routes")(app);
 
 //set port
 const PORT = process.env.PORT || 8080;
