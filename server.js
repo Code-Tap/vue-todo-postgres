@@ -5,11 +5,11 @@ const db = require("./models");
 
 const app = express();
 
-// db.sequelize.sync(); //use this is prod
+db.sequelize.sync(); //use this is prod
 
-db.sequelize.sync({ force: true }).then(() => {
-    console.log("Drop and re-sync db.");
-  });
+// db.sequelize.sync({ force: true }).then(() => {
+//     console.log("Drop and re-sync db.");
+//   });
 
 var corsOptions = {
     origin: "htt://localhost:8081"
@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //test route
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to this Vue app." });
+    res.json({ status: "success", message: "Welcome to the API" });
 });
 
 require("./routes/tutorial.routes")(app);
