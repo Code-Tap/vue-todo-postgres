@@ -7,7 +7,7 @@ let api = 'http://localhost:8080'
 const { expect } = chai;
 chai.use(chaiHttp);
 describe("DATABASE TEST WRITE", () => {
-    describe("POST OPERATIONS", () => {
+    
 
         var testEntrys = [{
             "title" : "mocha TEST",
@@ -31,26 +31,29 @@ describe("DATABASE TEST WRITE", () => {
             }
             done()
             });
-    });
+        });
+        
+describe("POST OPERATIONS", () => {
+    
 
         it("Should Fecth all the records", (done)=>{
             chai
                 .request(api)
                 .get("/api/tutorials/")
-                .end((err, result)=>{
-                    result.should.have.status(200);
-                    console.log ("Got ",result.body.data.length, " docs");
-
+                .end((err, res)=>{
+                    expect(res).to.have.status(200);
+                    console.log ("Got ",res.body.length, " docs");
+                    // console.log ("res Body:", res.body);
                     done();
                 });
         });
 
         it ("Should Fetch Particular record only", (done)=>{
             chai.request(api)
-                .get("/api/tutorials/" + 1 )
-                .end((err, result)=>{                    
-                    result.should.have.status(200)
-                    console.log("Fetched Particlar Record using /:ID ::::", result.body)
+                .get("/api/tutorials/1/" )
+                .end((err, res)=>{                    
+                    expect(res).to.have.status(200)
+                    console.log("Fetched Particlar Record using /:ID ::::", res.body)
                     done()
                 })
         })
